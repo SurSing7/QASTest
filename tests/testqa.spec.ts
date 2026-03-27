@@ -1,15 +1,26 @@
-import { test, expect } from '@playwright/test';
+import { test } from '../fixtures/fixture.ts';
+import { Loginpage } from '../pages/LoginPage';
+import { readFileSync } from 'fs';
+import { PaymentsPage, userType } from '../pages/paymentpage.ts';
 
-test.describe('login test', () => {
-  test('1 login verification', async ({ page }) => {
-    await page.goto('https://www.google.com/');
-    console.log('login');
-    await page.waitForTimeout(6000);
-  });
+const dataJs=JSON.parse(readFileSync(new URL('../testdata/testingData.json',
+   import.meta.url), 'utf-8'));
 
-  test('2 add to cart', async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
-    expect(page).toHaveTitle('Swag Labs');
-    await page.waitForTimeout(4000);
-  });
+test.skip('Login Form Test', async ({ mfixtur }) => {
+  // Login to app
+    // const loginpage=new Loginpage(loginpages);
+    await mfixtur.navigateToUrl();
+    await mfixtur.loginPage();
+    console.log('Test completed')
 });
+
+test('second', async ({ page }) => {
+  const payPage=new PaymentsPage(page);
+  const list= await payPage.excelData<userType>();
+  for(const row of list){
+  console.log('dat is=',row);
+  await payPage.populateField(row.user, row.Pass);
+  }
+
+});
+

@@ -30,7 +30,18 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    actionTimeout:40000,
+    navigationTimeout:35000,
+    trace: 'on',
+    screenshot:{
+      mode: 'on',
+      fullPage:true,
+    },
+    video:'off',
+    viewport: { width: 1920, height: 1080 },
+    launchOptions:{
+       args: ['--start-maximized']
+    }
   },
 
   /* Configure projects for major browsers */
@@ -38,6 +49,10 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      timeout: 35000,
+      expect:{
+        timeout: 30000,
+      }
     },
 
     // {

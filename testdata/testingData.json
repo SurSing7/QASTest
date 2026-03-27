@@ -1,0 +1,10 @@
+{
+    "playwright":{
+        "username":"user1",
+        "password":"password"
+    },
+    "defaultTimeout":5000,
+    "Schene":{
+    "credentails":"crt1"
+}
+}
